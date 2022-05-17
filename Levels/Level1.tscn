@@ -66,11 +66,11 @@ limit_bottom = 16
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Background" type="CanvasLayer" parent="."]
 layer = -1
 scale = Vector2( 4, 4 )
 transform = Transform2D( 4, 0, 0, 4, 0, 0 )
 
-[node name="Background" type="Sprite" parent="CanvasLayer"]
+[node name="Sprite" type="Sprite" parent="Background"]
 position = Vector2( 80, 72 )
 texture = ExtResource( 1 )
