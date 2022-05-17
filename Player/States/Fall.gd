@@ -18,7 +18,7 @@ func physics_process(delta: float) -> void:
 	var input_direction_x := player._get_input_velocity()
 	player._velocity.x = player.base_move_speed * input_direction_x
 	player._velocity.y += player._fall_gravity * delta
-	player._velocity = player.move_and_slide_with_snap(player._velocity, player.snap_normal * player.snap_modify, Vector2.UP, true)
+	player._velocity = player.move_and_slide_with_snap(player._velocity, Vector2.ZERO, Vector2.UP, true)
 
 	if player.is_on_floor():
 		if not _buffer_jump.is_stopped():

@@ -4,6 +4,7 @@ extends KinematicBody2D
 const BLOCK_WIDTH := 16
 
 export var base_move_speed := 5.0 * BLOCK_WIDTH
+export var dash_multiplier := 1.5
 export var max_jump_height := 3.0 * BLOCK_WIDTH setget _set_max_jump_height
 export var max_jump_distance := 2.0 * BLOCK_WIDTH setget _set_max_jump_distance
 export var max_fall_distance := 2.0 * BLOCK_WIDTH setget _set_max_jump_distance
@@ -16,8 +17,7 @@ onready var _fall_gravity := _calculate_jump_gravity(max_jump_height, max_fall_d
 onready var _sprite := $Sprite as Sprite
 onready var _sprite_anim := $Sprite/AnimationPlayer as AnimationPlayer
 
-var snap_normal := Vector2.DOWN
-var snap_modify
+var snap_normal := Vector2.DOWN * BLOCK_WIDTH
 var extra_jumps_left := extra_jump_count
 
 var _velocity := Vector2.ZERO
@@ -26,10 +26,6 @@ var _velocity := Vector2.ZERO
 func _physics_process(_delta: float) -> void:
 	if is_on_floor():
 		extra_jumps_left = extra_jump_count
-
-	snap_modify = 0
-	if _velocity.y >= 0:
-		snap_modify = 8
 
 
 func jump(free: bool = false) -> void:
@@ -43,7 +39,7 @@ func jump(free: bool = false) -> void:
 
 
 func teleport(to: Vector2) -> void:
-	set_position(to)
+	set_global_position(to)
 
 
 func get_facing_direction() -> int:

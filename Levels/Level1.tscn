@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/scrimblo-background.png" type="Texture" id=1]
 [ext_resource path="res://Assets/scrimblo-tileset.png" type="Texture" id=2]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Levels/DeathPlane.gd" type="Script" id=4]
+
+[sub_resource type="LineShape2D" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -48,11 +51,22 @@ points = PoolVector2Array( 0, 16, 0, 16, 16, 0, 16, 16, 0, 16, 16, 16, 16, 16, 1
 
 [node name="Level" type="Node2D"]
 
+[node name="Start" type="Position2D" parent="."]
+position = Vector2( 0, -12 )
+
+[node name="DeathPlane" type="Area2D" parent="."]
+position = Vector2( 0, 32 )
+script = ExtResource( 4 )
+start_node = NodePath("../Start")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathPlane"]
+shape = SubResource( 4 )
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 3 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( -327685, 0, 0, -262149, 0, 0, -196613, 0, 0, -131077, 0, 0, -65541, 0, 0, -5, 0, 0, -65534, 0, 65536, 65531, 0, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0 )
+tile_data = PoolIntArray( -327685, 0, 0, -262149, 0, 0, -196613, 0, 0, -131077, 0, 0, -65541, 0, 0, -131068, 0, 2, -131067, 0, 0, -5, 0, 0, -65534, 0, 65536, -65533, 0, 2, -65532, 0, 0, -65531, 0, 0, 65531, 0, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, -12 )
@@ -74,3 +88,5 @@ transform = Transform2D( 4, 0, 0, 4, 0, 0 )
 [node name="Sprite" type="Sprite" parent="Background"]
 position = Vector2( 80, 72 )
 texture = ExtResource( 1 )
+
+[connection signal="body_entered" from="DeathPlane" to="DeathPlane" method="_on_DeathPlane_body_entered"]

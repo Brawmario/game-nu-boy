@@ -13,3 +13,5 @@ func physics_process(_delta: float) -> void:
 		state_machine.transition_to("Jump")
 	elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
 		state_machine.transition_to("Run")
+	elif Input.is_action_just_pressed("dash"):
+		state_machine.transition_to("Dash")
