@@ -4,9 +4,14 @@ onready var _duration: Timer = $Duration
 
 
 func enter(_msg := {}) -> void:
+	player._dash_hitbox.monitorable = true
+	player._dash_hitbox.monitoring = true
 	player._sprite_anim.play("Dash")
 	_duration.start()
 
+func exit() -> void:
+	player._dash_hitbox.monitorable = false
+	player._dash_hitbox.monitoring = false
 
 func physics_process(delta: float) -> void:
 	player._velocity.x = player.base_move_speed * player.dash_multiplier * player.get_facing_direction()

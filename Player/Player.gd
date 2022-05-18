@@ -14,8 +14,9 @@ onready var _jump_velocity := _calculate_jump_velocity(max_jump_height, max_jump
 onready var _jump_gravity := _calculate_jump_gravity(max_jump_height, max_jump_distance, base_move_speed)
 onready var _fall_gravity := _calculate_jump_gravity(max_jump_height, max_fall_distance, base_move_speed)
 
-onready var _sprite := $Sprite as Sprite
-onready var _sprite_anim := $Sprite/AnimationPlayer as AnimationPlayer
+onready var _body := $Body as Node2D
+onready var _sprite_anim := $Body/Sprite/AnimationPlayer as AnimationPlayer
+onready var _dash_hitbox := $Body/DashHitbox as Area2D
 
 var snap_normal := Vector2.DOWN * BLOCK_WIDTH / 2
 var extra_jumps_left := extra_jump_count
@@ -42,8 +43,8 @@ func teleport(to: Vector2) -> void:
 	set_global_position(to)
 
 
-func get_facing_direction() -> int:
-	return -1 if _sprite.flip_h else 1
+func get_facing_direction() -> float:
+	return _body.scale.x
 
 
 func _get_input_velocity() -> float:
@@ -54,10 +55,8 @@ func _get_input_velocity() -> float:
 	if Input.is_action_pressed("move_right"):
 		horizontal += 1.0
 
-	if horizontal < 0:
-		_sprite.flip_h = true
-	elif horizontal > 0:
-		_sprite.flip_h = false
+	if horizontal != 0.0:
+		_body.scale.x = horizontal
 
 	return horizontal
 
