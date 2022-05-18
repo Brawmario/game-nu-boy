@@ -134,7 +134,7 @@ anims/Jump = SubResource( 3 )
 anims/RESET = SubResource( 4 )
 anims/Walk = SubResource( 5 )
 
-[node name="DashHitbox" type="Area2D" parent="Body"]
+[node name="DashHitbox" type="Area2D" parent="Body" groups=["break_hitbox"]]
 position = Vector2( 6.5, 0 )
 monitoring = false
 monitorable = false
