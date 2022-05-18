@@ -17,7 +17,7 @@ onready var _fall_gravity := _calculate_jump_gravity(max_jump_height, max_fall_d
 onready var _sprite := $Sprite as Sprite
 onready var _sprite_anim := $Sprite/AnimationPlayer as AnimationPlayer
 
-var snap_normal := Vector2.DOWN * BLOCK_WIDTH
+var snap_normal := Vector2.DOWN * BLOCK_WIDTH / 2
 var extra_jumps_left := extra_jump_count
 
 var _velocity := Vector2.ZERO
