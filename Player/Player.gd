@@ -16,7 +16,7 @@ onready var _fall_gravity := _calculate_jump_gravity(max_jump_height, max_fall_d
 
 onready var _body := $Body as Node2D
 onready var _sprite_anim := $Body/Sprite/AnimationPlayer as AnimationPlayer
-onready var _dash_hitbox := $Body/DashHitbox as Area2D
+onready var _dash_hitbox_shape := $Body/DashHitbox/CollisionShape2D as CollisionShape2D
 
 var snap_normal := Vector2.DOWN * BLOCK_WIDTH / 2
 var extra_jumps_left := extra_jump_count

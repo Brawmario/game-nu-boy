@@ -136,11 +136,10 @@ anims/Walk = SubResource( 5 )
 
 [node name="DashHitbox" type="Area2D" parent="Body" groups=["break_hitbox"]]
 position = Vector2( 6.5, 0 )
-monitoring = false
-monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/DashHitbox"]
 shape = SubResource( 8 )
+disabled = true
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 3 )
