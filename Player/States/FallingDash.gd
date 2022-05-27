@@ -1,22 +1,24 @@
 extends PlayerState
 
-onready var _coyote: Timer = $Coyote
-onready var _buffer_jump: Timer = $BufferJump
+onready var _coyote: Timer = $"../Fall/Coyote"
+onready var _buffer_jump: Timer = $"../Fall/BufferJump"
+
+var _should_disable_hitbox_on_exit: bool
 
 
 func enter(msg := {}) -> void:
-	player._sprite_anim.play("Fall")
 	if "coyote" in msg:
 		_coyote.start()
+	_should_disable_hitbox_on_exit = true
 
 
 func exit() -> void:
 	_coyote.stop()
+	player._dash_hitbox_shape.set_deferred("disabled", _should_disable_hitbox_on_exit)
 
 
 func physics_process(delta: float) -> void:
-	var input_direction_x := player._get_input_velocity()
-	player._velocity.x = player.base_move_speed * input_direction_x
+	player._velocity.x = player.base_move_speed * player.dash_multiplier * player.get_facing_direction()
 	player._velocity.y += player._fall_gravity * delta
 	player._velocity = player.move_and_slide_with_snap(player._velocity, Vector2.ZERO, Vector2.UP, true)
 
@@ -33,8 +35,10 @@ func physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("jump"):
 		if not _coyote.is_stopped():
-			state_machine.transition_to("Jump", {"free": true})
+			_should_disable_hitbox_on_exit = false
+			state_machine.transition_to("JumpingDash", {"free": true})
 		elif player.extra_jumps_left >= 1:
-			state_machine.transition_to("Jump")
+			_should_disable_hitbox_on_exit = false
+			state_machine.transition_to("JumpingDash")
 		else:
 			_buffer_jump.start()
