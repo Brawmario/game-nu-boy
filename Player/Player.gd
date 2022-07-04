@@ -10,9 +10,15 @@ export var max_jump_distance := 2.0 * BLOCK_WIDTH setget _set_max_jump_distance
 export var max_fall_distance := 2.0 * BLOCK_WIDTH setget _set_max_jump_distance
 export var extra_jump_count := 1
 
-onready var _jump_velocity := _calculate_jump_velocity(max_jump_height, max_jump_distance, base_move_speed)
-onready var _jump_gravity := _calculate_jump_gravity(max_jump_height, max_jump_distance, base_move_speed)
-onready var _fall_gravity := _calculate_jump_gravity(max_jump_height, max_fall_distance, base_move_speed)
+onready var _jump_velocity := _calculate_jump_velocity(
+	max_jump_height, max_jump_distance, base_move_speed
+)
+onready var _jump_gravity := _calculate_jump_gravity(
+	max_jump_height, max_jump_distance, base_move_speed
+)
+onready var _fall_gravity := _calculate_jump_gravity(
+	max_jump_height, max_fall_distance, base_move_speed
+)
 
 onready var _body := $Body as Node2D
 onready var _sprite_anim := $Body/Sprite/AnimationPlayer as AnimationPlayer
@@ -61,12 +67,19 @@ func _get_input_velocity() -> float:
 	return horizontal
 
 
-func _calculate_jump_velocity(max_height: float, max_distance: float, horizontal_velocity: float) -> float:
-	return ((-2.0 * max_height * horizontal_velocity) / max_distance)
+func _calculate_jump_velocity(
+	max_height: float, max_distance: float, horizontal_velocity: float
+) -> float:
+	return (-2.0 * max_height * horizontal_velocity) / max_distance
 
 
-func _calculate_jump_gravity(max_height: float, max_distance: float, horizontal_velocity: float) -> float:
-	return ((2.0 * max_height * horizontal_velocity * horizontal_velocity) / (max_distance * max_distance))
+func _calculate_jump_gravity(
+	max_height: float, max_distance: float, horizontal_velocity: float
+) -> float:
+	return (
+		(2.0 * max_height * horizontal_velocity * horizontal_velocity)
+		/ (max_distance * max_distance)
+	)
 
 
 func _set_max_jump_height(value: float) -> void:
