@@ -42,6 +42,10 @@ config/name="game-nu-boy"
 run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Globals="*res://Autoloads/Globals.gd"
+
 [display]
 
 window/size/width=160

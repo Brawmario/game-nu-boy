@@ -12,4 +12,5 @@ func _ready() -> void:
 func _on_DeathPlane_body_entered(body: Node) -> void:
 	var player := body as Player
 	if player:
+		Globals.player_lives -= 1
 		player.teleport(start.global_position)
