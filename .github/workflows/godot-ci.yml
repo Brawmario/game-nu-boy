@@ -1,0 +1,66 @@
+name: godot-ci export
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+env:
+  GODOT_VERSION: 3.4.4
+
+jobs:
+  export-game:
+    name: Export game to ${{ matrix.PLATFORM }}
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:3.4.4
+    strategy:
+      matrix:
+        include:
+          - PLATFORM: windows
+            EXPORT_PRESET: Windows Desktop
+            EXPORT_FILENAME: game-nu-boy.exe
+          - PLATFORM: linux
+            EXPORT_PRESET: Linux/X11
+            EXPORT_FILENAME: game-nu-boy.x86_64
+          - PLATFORM: mac
+            EXPORT_PRESET: Mac OSX
+            EXPORT_FILENAME: game-nu-boy.zip
+          - PLATFORM: web
+            EXPORT_PRESET: HTML5
+            EXPORT_FILENAME: index.html
+      fail-fast: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+      - name: Build
+        run: |
+          mkdir -v -p build/${{ matrix.PLATFORM }}
+          godot -v --export "${{ matrix.EXPORT_PRESET }}" build/${{ matrix.PLATFORM }}/${{ matrix.EXPORT_FILENAME }}
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: game-nu-boy.${{ github.ref_name }}.${{ matrix.PLATFORM }}
+          path: build/${{ matrix.PLATFORM }}
+      - name: Butler Upload
+        uses: josephbmanley/butler-publish-itchio-action@v1.0.3
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: ${{ matrix.PLATFORM }}
+          ITCH_GAME: game-nu-boy
+          ITCH_USER: brawmario
+          PACKAGE: build/${{ matrix.PLATFORM }}
+          VERSION: ${{ github.ref_name }}
+      - name: Install rsync
+        if: matrix.PLATFORM == 'web'
+        run: |
+          apt-get update && apt-get install -y rsync
+      - name: Deploy to GitHub Pages
+        if: matrix.PLATFORM == 'web'
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages
+          folder: build/web
