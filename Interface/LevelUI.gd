@@ -1,6 +1,7 @@
 extends ColorRect
 
 onready var lives := $VBoxContainer/Lives as Label
+onready var crates := $VBoxContainer/Crates as Label
 
 
 func _ready() -> void:
@@ -10,3 +11,7 @@ func _ready() -> void:
 
 func update_lives(value: int) -> void:
 	lives.text = "X%d" % value
+
+
+func update_crates(value: int) -> void:
+	crates.text = "X%d" % value

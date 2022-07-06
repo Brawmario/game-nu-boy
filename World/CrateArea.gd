@@ -1,5 +1,7 @@
 extends Area2D
 
+signal destroyed
+
 var CratePiece := preload("res://World/CratePiece.tscn")
 
 var tile_map: TileMap = null
@@ -20,3 +22,5 @@ func _on_CrateArea_area_entered(area: Area2D) -> void:
 			get_tree().create_timer(30).connect("timeout", piece, "queue_free")
 
 		$CollisionShape2D.set_deferred("disabled", true)
+		
+		emit_signal("destroyed")
