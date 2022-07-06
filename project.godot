@@ -9,6 +9,21 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "DeathPlane",
+"language": "GDScript",
+"path": "res://World/DeathPlane.gd"
+}, {
+"base": "TileMap",
+"class": "LevelMap",
+"language": "GDScript",
+"path": "res://Levels/LevelTileMap.gd"
+}, {
+"base": "ColorRect",
+"class": "LevelUI",
+"language": "GDScript",
+"path": "res://Interface/LevelUI.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
@@ -30,6 +45,9 @@ _global_script_classes=[ {
 "path": "res://Shared/StateMachine.gd"
 } ]
 _global_script_class_icons={
+"DeathPlane": "",
+"LevelMap": "",
+"LevelUI": "",
 "Player": "",
 "PlayerState": "",
 "State": "",

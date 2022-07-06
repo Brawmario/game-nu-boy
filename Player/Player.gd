@@ -23,6 +23,7 @@ onready var _fall_gravity := _calculate_jump_gravity(
 onready var _body := $Body as Node2D
 onready var _sprite_anim := $Body/Sprite/AnimationPlayer as AnimationPlayer
 onready var _dash_hitbox_shape := $Body/DashHitbox/CollisionShape2D as CollisionShape2D
+onready var _state_machine := $StateMachine as StateMachine
 
 var snap_normal := Vector2.DOWN * BLOCK_WIDTH / 2
 var extra_jumps_left := extra_jump_count
@@ -47,6 +48,10 @@ func jump(free: bool = false) -> void:
 
 func teleport(to: Vector2) -> void:
 	set_global_position(to)
+
+
+func die() -> void:
+	_state_machine.transition_to("Dead")
 
 
 func get_facing_direction() -> float:

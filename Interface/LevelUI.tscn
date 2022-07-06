@@ -49,3 +49,13 @@ margin_bottom = 7.0
 custom_colors/font_color = Color( 0.2, 0.172549, 0.313726, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "X0"
+
+[node name="GameOver" type="Label" parent="VBoxContainer"]
+visible = false
+margin_left = 60.0
+margin_top = 1.0
+margin_right = 121.0
+margin_bottom = 7.0
+custom_colors/font_color = Color( 0.2, 0.172549, 0.313726, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Game Over"
