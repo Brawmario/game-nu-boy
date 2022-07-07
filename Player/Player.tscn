@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Assets/scrimblo.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://Player/States/JumpingDash.gd" type="Script" id=9]
 [ext_resource path="res://Player/States/FallingDash.gd" type="Script" id=10]
 [ext_resource path="res://Player/States/Dead.gd" type="Script" id=11]
+[ext_resource path="res://Assets/Audio/jump_double.ogg" type="AudioStream" id=12]
+[ext_resource path="res://Assets/Audio/jump.ogg" type="AudioStream" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.5, 12 )
@@ -184,3 +186,11 @@ script = ExtResource( 10 )
 
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource( 11 )
+
+[node name="SoundEffects" type="Node2D" parent="."]
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = ExtResource( 13 )
+
+[node name="JumpDouble" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = ExtResource( 12 )

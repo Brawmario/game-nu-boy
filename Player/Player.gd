@@ -24,6 +24,8 @@ onready var _body := $Body as Node2D
 onready var _sprite_anim := $Body/Sprite/AnimationPlayer as AnimationPlayer
 onready var _dash_hitbox_shape := $Body/DashHitbox/CollisionShape2D as CollisionShape2D
 onready var _state_machine := $StateMachine as StateMachine
+onready var _audio_jump := $SoundEffects/Jump as AudioStreamPlayer2D
+onready var _audio_jump_double := $SoundEffects/JumpDouble as AudioStreamPlayer2D
 
 var snap_normal := Vector2.DOWN * BLOCK_WIDTH / 2
 var extra_jumps_left := extra_jump_count
@@ -41,6 +43,9 @@ func jump(free: bool = false) -> void:
 
 	if not free:
 		extra_jumps_left -= 1
+		_audio_jump_double.play()
+	else:
+		_audio_jump.play()
 
 	if extra_jumps_left < 0:
 		extra_jumps_left = 0
