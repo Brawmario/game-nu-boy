@@ -21,6 +21,8 @@ func _on_CrateArea_area_entered(area: Area2D) -> void:
 			call_deferred("add_child", piece)
 			get_tree().create_timer(30).connect("timeout", piece, "queue_free")
 
+		$AudioStreamPlayer2D.play()
+
 		$CollisionShape2D.set_deferred("disabled", true)
 
 		emit_signal("destroyed")
