@@ -10,10 +10,12 @@ func enter(_msg := {}) -> void:
 	player._sprite_anim.play("Dash")
 	_duration.start()
 	_should_disable_hitbox_on_exit = true
+	player._audio_dash.play()
 
 
 func exit() -> void:
 	player._dash_hitbox_shape.set_deferred("disabled", _should_disable_hitbox_on_exit)
+	player._audio_dash.stop()
 
 
 func physics_process(delta: float) -> void:

@@ -10,11 +10,13 @@ func enter(msg := {}) -> void:
 	if "coyote" in msg:
 		_coyote.start()
 	_should_disable_hitbox_on_exit = true
+	player._audio_dash.playing = true
 
 
 func exit() -> void:
 	_coyote.stop()
 	player._dash_hitbox_shape.set_deferred("disabled", _should_disable_hitbox_on_exit)
+	player._audio_dash.stop()
 
 
 func physics_process(delta: float) -> void:

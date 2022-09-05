@@ -15,6 +15,7 @@ func update_lives(value: int) -> void:
 	lives.text = "X%d" % value
 	if value == 0:
 		game_over.visible = true
+		crates.visible = false
 
 
 func update_crates(value: int) -> void:
@@ -22,3 +23,4 @@ func update_crates(value: int) -> void:
 		crates.text = "X%d" % value
 	else:
 		crates.text = "All Clear!"
+		$VictoryJingle.play()

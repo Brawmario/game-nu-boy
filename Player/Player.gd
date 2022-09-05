@@ -26,6 +26,7 @@ onready var _dash_hitbox_shape := $Body/DashHitbox/CollisionShape2D as Collision
 onready var _state_machine := $StateMachine as StateMachine
 onready var _audio_jump := $SoundEffects/Jump as AudioStreamPlayer2D
 onready var _audio_jump_double := $SoundEffects/JumpDouble as AudioStreamPlayer2D
+onready var _audio_dash := $SoundEffects/Dash as AudioStreamPlayer2D
 
 var snap_normal := Vector2.DOWN * BLOCK_WIDTH / 2
 var extra_jumps_left := extra_jump_count

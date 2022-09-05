@@ -3,6 +3,11 @@ extends PlayerState
 
 func enter(msg := {}) -> void:
 	player.jump(msg.get("free", false))
+	player._audio_dash.playing = true
+
+
+func exit() -> void:
+	player._audio_dash.stop()
 
 
 func physics_process(delta: float) -> void:
